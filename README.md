@@ -4,7 +4,7 @@
 
 [![Npm Version](https://img.shields.io/npm/v/git-timesince.svg)](https://www.npmjs.com/package/git-timesince)
 [![Build Status](https://travis-ci.org/gabrielcsapo/git-timesince.svg?branch=master)](https://travis-ci.org/gabrielcsapo/git-timesince)
-[![Coverage Status](https://node-coverage-server.herokuapp.com/badge/github%2Ecom/gabrielcsapo/git-timesince.svg)](https://node-coverage-server.herokuapp.com/coverage/github%2Ecom/gabrielcsapo/git-timesince)
+[![Coverage Status](https://lcov-server.herokuapp.com/badge/github%2Ecom/gabrielcsapo/git-timesince.svg)](https://lcov-server.herokuapp.com/coverage/github%2Ecom/gabrielcsapo/git-timesince)
 [![Dependency Status](https://david-dm.org/gabrielcsapo/git-timesince.svg)](https://david-dm.org/gabrielcsapo/git-timesince)
 [![devDependency Status](https://david-dm.org/gabrielcsapo/git-timesince/dev-status.svg)](https://david-dm.org/gabrielcsapo/git-timesince#info=devDependencies)
 [![npm](https://img.shields.io/npm/dt/git-timesince.svg)]()
