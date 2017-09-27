@@ -1,9 +1,9 @@
 const test = require('tape');
 
-const time = require('../../lib/util').time;
+const { time } = require('../../lib/util');
 
 test('util', (t) => {
-  t.plan(5);
+  t.plan(6);
 
   t.test('time in seconds', (t) => {
     t.equal(time(1234567890, 'seconds'), '1234567s');
@@ -27,6 +27,11 @@ test('util', (t) => {
 
   t.test('time in days', (t) => {
     t.equal(time(1234567890, 'weeks'), '2w');
+    t.end();
+  });
+
+  t.test('time should work without type', (t) => {
+    t.equal(time(1234567890), '1234567890ms');
     t.end();
   });
 

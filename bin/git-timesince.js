@@ -6,19 +6,20 @@ const program = require('commander');
 
 const timesince = require('../');
 
-const cwd = process.cwd();
-
 program
   .version(require('../package.json').version)
   .option('-r, --recursive', 'Recursively looks through directories, using the current working directory as the base')
-  .option('-t, --timeFormat <range>', 'The time format that the output will be formatted in, [seconds, minutes, hours, days, weeks]', 'days')
+  .option('-t, --timeFormat <range>', 'The time format that the output will be formatted in, [seconds, minutes, hours, days, weeks]')
+  .option('-d, --directory [directory]', 'The current working directory, defaults to process.cwd()')
   .parse(process.argv);
 
-if(program.recursive) {
-  const directories = fs.readdirSync(cwd);
+const { directory=process.cwd(), recursive=false, timeFormat="days" } = program;
+
+if(recursive) {
+  const directories = fs.readdirSync(directory);
 
   directories.forEach((d) => {
-    let dir = path.resolve(cwd, d);
+    let dir = path.resolve(directory, d);
     if(fs.existsSync(path.resolve(dir, '.git'))) {
       timesince(dir, (error, time) => {
         if(error) {
@@ -26,16 +27,16 @@ if(program.recursive) {
         } else {
           console.log(`${d} [${time}]`); // eslint-disable-line
         }
-      }, program.timeFormat);
+      }, timeFormat);
     }
   });
 
 } else {
-  timesince(cwd, (error, time) => {
+  timesince(directory, (error, time) => {
     if(error) {
-      console.log(`${cwd} [?]`); // eslint-disable-line
+      console.log(`${directory} [?]`); // eslint-disable-line
     } else {
-      console.log(`${cwd} [${time}]`); // eslint-disable-line
+      console.log(`${directory} [${time}]`); // eslint-disable-line
     }
-  }, program.timeFormat);
+  }, timeFormat);
 }

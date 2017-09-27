@@ -1,12 +1,26 @@
 {
   "name": "git-timesince",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "⏰ a simple extension of git that shows the time since the last commit",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
     "test": "tape test test/**/*.js",
-    "coverage": "tap test --coverage --coverage-report=lcov"
+    "coverage": "tap test --coverage --coverage-report=lcov",
+    "pack": "pkg bin/git-timesince.js -c package.json -o packed/git-timesince"
+  },
+  "pkg": {
+    "scripts": [
+      "bin/**.js",
+      "lib/**.js",
+      "index.js"
+    ],
+    "targets": [
+      "node8-alpine-x64",
+      "node8-linux-x64",
+      "node8-macos-x64",
+      "node8-win-x64"
+    ]
   },
   "repository": {
     "type": "git",
@@ -22,10 +36,11 @@
   },
   "homepage": "https://github.com/gabrielcsapo/git-timesince#readme",
   "engines": {
-    "node": ">= 4"
+    "node": ">= 6"
   },
   "devDependencies": {
-    "eslint": "^4.5.0",
+    "eslint": "^4.7.2",
+    "pkg": "^4.2.4",
     "tap": "^10.7.2",
     "tape": "^4.8.0"
   },

@@ -26,5 +26,5 @@ test('git-timesince', (t) => {
       t.end();
     });
   });
-  
+
 });

@@ -1,6 +1,5 @@
-const exec = require('child_process').exec;
-
-const time = require('./lib/util').time;
+const { exec } = require('child_process');
+const { time } = require('./lib/util');
 
 /**
  * gets the timesince for a given git directory
