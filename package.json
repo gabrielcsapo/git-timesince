@@ -1,13 +1,40 @@
 {
   "name": "git-timesince",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "⏰ a simple extension of git that shows the time since the last commit",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielcsapo/git-timesince.git"
+  },
+  "author": "Gabriel J. Csapo <gabecsapo@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/gabrielcsapo/git-timesince/issues"
+  },
+  "homepage": "https://github.com/gabrielcsapo/git-timesince#readme",
+  "engines": {
+    "node": ">= 6"
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "tape test test/**/*.js",
     "coverage": "tap test --coverage --coverage-report=lcov",
+    "generate-docs": "tryitout",
     "pack": "pkg bin/git-timesince.js -c package.json -o packed/git-timesince"
+  },
+  "bin": {
+    "git-timesince": "./bin/git-timesince.js"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "pkg": "^4.2.6",
+    "tap": "^11.0.0",
+    "tape": "^4.8.0",
+    "tryitout": "^1.2.0"
+  },
+  "dependencies": {
+    "commander": "^2.12.1"
   },
   "pkg": {
     "scripts": [
@@ -21,30 +48,5 @@
       "node8-macos-x64",
       "node8-win-x64"
     ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gabrielcsapo/git-timesince.git"
-  },
-  "bin": {
-    "git-timesince": "./bin/git-timesince.js"
-  },
-  "author": "Gabriel J. Csapo <gabecsapo@gmail.com>",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/gabrielcsapo/git-timesince/issues"
-  },
-  "homepage": "https://github.com/gabrielcsapo/git-timesince#readme",
-  "engines": {
-    "node": ">= 6"
-  },
-  "devDependencies": {
-    "eslint": "^4.7.2",
-    "pkg": "^4.2.4",
-    "tap": "^10.7.2",
-    "tape": "^4.8.0"
-  },
-  "dependencies": {
-    "commander": "^2.11.0"
   }
 }

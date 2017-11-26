@@ -12,13 +12,13 @@
 
 ## Installation
 
-```bash
+```
 npm install git-timesince -g
 ```
 
 ## Usage
 
-```bash
+```
 Usage: git-timesince [options]
 
 
@@ -33,24 +33,24 @@ Options:
 
 > This can also be used when installed globally as an extension of git
 
-```bash
+```
 git timesince
 ```
 
 If you want to use any options it can applied as such
 
-```bash
+```
 git timesince -r
 ```
 
 The default time format is days, but can also be; `seconds`, `minutes`, `hours`, `days`, `weeks`.
 
-```bash
+```
 $ git timesince --timeFormat seconds
 /git-timesince [11910s]
 ```
 
-```bash
+```
 $ git timesince -r
 run-anything [0d]
 quantified_self [217d]

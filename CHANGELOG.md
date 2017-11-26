@@ -1,3 +1,8 @@
+# 0.2.0 (11/26/2017)
+
+- updates interface for internal timesince functionality
+- updates dependencies
+
 # 0.1.0 (09/26/2017)
 
 - fixes default to return with ms suffix

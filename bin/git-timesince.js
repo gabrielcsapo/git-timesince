@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
 const program = require('commander');
 
-const timesince = require('../');
+const Timesince = require('../');
 
 program
   .version(require('../package.json').version)
@@ -15,28 +13,11 @@ program
 
 const { directory=process.cwd(), recursive=false, timeFormat="days" } = program;
 
-if(recursive) {
-  const directories = fs.readdirSync(directory);
-
-  directories.forEach((d) => {
-    let dir = path.resolve(directory, d);
-    if(fs.existsSync(path.resolve(dir, '.git'))) {
-      timesince(dir, (error, time) => {
-        if(error) {
-          console.log(`${d} [?]`); // eslint-disable-line
-        } else {
-          console.log(`${d} [${time}]`); // eslint-disable-line
-        }
-      }, timeFormat);
-    }
-  });
-
-} else {
-  timesince(directory, (error, time) => {
-    if(error) {
-      console.log(`${directory} [?]`); // eslint-disable-line
-    } else {
-      console.log(`${directory} [${time}]`); // eslint-disable-line
-    }
-  }, timeFormat);
-}
+Timesince(directory, {
+  recursive,
+  timeFormat
+}, (error, time) => {
+  if(!error) {
+    console.log(`${directory} [${time}]`); // eslint-disable-line
+  }
+});
