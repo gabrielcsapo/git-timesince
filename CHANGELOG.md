@@ -1,3 +1,8 @@
+# 0.3.0 (11/27/2017)
+
+- fixes finding recursive directory structures
+- reformats output to be more tabular
+
 # 0.2.0 (11/26/2017)
 
 - updates interface for internal timesince functionality

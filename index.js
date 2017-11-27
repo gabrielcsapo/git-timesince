@@ -2,7 +2,23 @@ const fs = require('fs');
 const path = require('path');
 
 const { exec } = require('child_process');
-const { time } = require('./lib/util');
+const { time, getDirectories } = require('./lib/util');
+
+function git(directory, timeFormat, callback) {
+  try {
+    exec("git log --pretty=format:'%aD' -1", {
+      cwd: directory
+    }, (error, response) => {
+      if (error) return callback(error);
+
+      const raw = response.toString('utf8').split('\n');
+
+      return callback(null, [directory, time(Math.abs(new Date().getTime() - new Date(raw[0]).getTime()), timeFormat || 'days')]);
+    });
+  } catch (ex) {
+    return callback(ex);
+  }
+}
 
 /**
  * gets the timesince for a given git directory
@@ -15,39 +31,57 @@ const { time } = require('./lib/util');
  * @return {[type]}            [description]
  */
 module.exports = function Timesince(directory, options={}, callback) {
-  if(typeof options === 'function') {
-    callback = options;
-    options = {};
-  }
-
-  const { recursive, timeFormat } = options;
-
-  if(recursive) {
-    const directories = fs.readdirSync(directory);
-
-    directories.forEach((d) => {
-      let dir = path.resolve(directory, d);
-      if(fs.existsSync(path.resolve(dir, '.git'))) {
-        Timesince(dir, options, (error, time) => {
-          if(!error) {
-            console.log(`${d} [${time}]`); // eslint-disable-line
-          }
-        });
-      }
-    });
-  }
-
   try {
-    exec("git log --pretty=format:'%aD' -1", {
-      cwd: directory
-    }, (error, response) => {
-      if(error) return callback(error);
+    let times = [];
 
-      const raw = response.toString('utf8').split('\n');
+    if (typeof options === 'function') {
+      callback = options;
+      options = {};
+    }
 
-      callback(null, time(Math.abs(new Date().getTime() - new Date(raw[0]).getTime()), timeFormat || 'days'));
-    });
-  } catch(ex) {
-    callback(ex);
+    const { recursive, timeFormat } = options;
+
+    if (recursive) {
+
+      const directories = getDirectories(directory);
+      let total = directories.length;
+
+      // don't continue stop automatically
+      if (total === 0) {
+        return callback(new Error('no directories to search'));
+      }
+
+      function done() {
+        total -= 1;
+        if (total === 0) {
+          return callback(null, times);
+        }
+      }
+
+      directories.forEach((d) => {
+        let dir = path.resolve(directory, d);
+        if (fs.existsSync(path.resolve(dir, '.git'))) {
+          git(dir, timeFormat, (error, time) => {
+            if (!error && time.length > 0) {
+              times.push(time);
+            }
+            done();
+          });
+        } else {
+          Timesince(dir, options, (error, time) => {
+            if (!error && time.length > 0) {
+              times.push(time);
+            }
+            done();
+          });
+        }
+      });
+    } else {
+      git(directory, timeFormat, (error, time) => {
+        return callback(error, time);
+      });
+    }
+  } catch (ex) {
+    return callback(ex);
   }
 };
