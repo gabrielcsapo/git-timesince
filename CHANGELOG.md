@@ -1,3 +1,8 @@
+# 0.3.1 (12/11/2017)
+
+- removes commander, parsing args the old fashion way
+- automatically uses the terminal size to determine how many columns should be rendered, instead of an arbitrary count of 4
+
 # 0.3.0 (11/27/2017)
 
 - fixes finding recursive directory structures

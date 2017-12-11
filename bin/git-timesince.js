@@ -1,16 +1,51 @@
 #!/usr/bin/env node
 
 const Table = require('cli-table2');
-const program = require('commander');
 
 const Timesince = require('../');
 
-program
-  .version(require('../package.json').version)
-  .option('-r, --recursive', 'Recursively looks through directories, using the current working directory as the base')
-  .option('-t, --timeFormat <range>', 'The time format that the output will be formatted in, [seconds, minutes, hours, days, weeks]')
-  .option('-d, --directory [directory]', 'The current working directory, defaults to process.cwd()')
-  .parse(process.argv);
+let program = {};
+const args = process.argv.slice(2);
+
+args.forEach((arg, i) => {
+  switch(arg) {
+    case '-v':
+    case '--version':
+    case 'version':
+      console.log(`v${require('../package.json').version}`); // eslint-disable-line
+    break;
+    case '-h':
+    case '--help':
+    case 'help':
+      console.log(`` // eslint-disable-line
+      `
+        Usage: git-timesince [options]
+
+        Commands:
+          -h, --help, help             Output usage information
+          -v, --version, version       Output the version number
+
+        Options:
+
+          -r, --recursive              Recursively looks through directories, using the current working directory as the base
+          -t, --timeFormat [range]     The time format that the output will be formatted in, [seconds, minutes, hours, days, weeks]
+          -d, --directory [directory]  The current working directory, defaults to process.cwd()
+     `);
+    break;
+    case '-r':
+    case '--recursive':
+      program.recursive = true;
+    break;
+    case '-t':
+    case '--timeFormat':
+      program.timeFormat = args[i + 1];
+    break;
+    case '-d':
+    case '--directory':
+      program.directory = args[i + 1];
+    break;
+  }
+});
 
 const { directory = process.cwd(), recursive = false, timeFormat = "days" } = program;
 
@@ -18,8 +53,10 @@ let currentLine = 0;
 let log = [[]];
 
 function print(times) {
+  const maxColumns = parseInt(process.stdout.columns / 45);
+
   times.forEach((time) => {
-    if (log[currentLine].length == 4) {
+    if (log[currentLine].length == maxColumns) {
       currentLine += 1;
       log[currentLine] = [];
     }
