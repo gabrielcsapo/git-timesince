@@ -13,24 +13,26 @@ args.forEach((arg, i) => {
     case '--version':
     case 'version':
       console.log(`v${require('../package.json').version}`); // eslint-disable-line
+      process.exit(0);
     break;
     case '-h':
     case '--help':
     case 'help':
-      console.log(`` // eslint-disable-line
-      `
-        Usage: git-timesince [options]
+      console.log(`` + // eslint-disable-line
+`
+  Usage: git-timesince [options]
 
-        Commands:
-          -h, --help, help             Output usage information
-          -v, --version, version       Output the version number
+  Commands:
+    -h, --help, help             Output usage information
+    -v, --version, version       Output the version number
 
-        Options:
-
-          -r, --recursive              Recursively looks through directories, using the current working directory as the base
-          -t, --timeFormat [range]     The time format that the output will be formatted in, [seconds, minutes, hours, days, weeks]
-          -d, --directory [directory]  The current working directory, defaults to process.cwd()
-     `);
+  Options:
+    -s, --sort [direction]       Can change the direction of the time since for the repos provided (asc, desc) [default is desc]
+    -r, --recursive              Recursively looks through directories, using the current working directory as the base
+    -t, --timeFormat [range]     The time format that the output will be formatted in, [seconds, minutes, hours, days, weeks]
+    -d, --directory [directory]  The current working directory, defaults to process.cwd()
+`);
+     process.exit(0);
     break;
     case '-r':
     case '--recursive':
@@ -44,18 +46,25 @@ args.forEach((arg, i) => {
     case '--directory':
       program.directory = args[i + 1];
     break;
+    case '-s':
+    case '--sort':
+      program.sort = args[i + 1];
+    break;
   }
 });
 
-const { directory = process.cwd(), recursive = false, timeFormat = "days" } = program;
+const { sort='desc', directory = process.cwd(), recursive = false, timeFormat = "days" } = program;
 
 let currentLine = 0;
 let log = [[]];
 
 function print(times) {
-  const maxColumns = parseInt(process.stdout.columns / 45);
+  const maxColumns = parseInt(process.stdout.columns / 25);
 
-  times.forEach((time) => {
+  times.sort((a, b) => {
+    if(sort === 'asc') return b[1] - a[1];
+    return a[1] - b[1];
+  }).forEach((time) => {
     if (log[currentLine].length == maxColumns) {
       currentLine += 1;
       log[currentLine] = [];
@@ -66,7 +75,7 @@ function print(times) {
       let name = time[0].replace(`${directory}/`, '');
       if(name == '/') name = process.cwd().substr(process.cwd().lastIndexOf('/') + 1, process.cwd().length);
 
-      log[currentLine].push(`${name} [${time[1]}]`); // eslint-disable-line
+      log[currentLine].push(`${name} [${time[2]}]`); // eslint-disable-line
     }
   });
 }

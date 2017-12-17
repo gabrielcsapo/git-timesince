@@ -12,6 +12,10 @@ test('git-timesince', (t) => {
 
     timesince(dir, (error, time) => {
       t.ok(!error);
+      t.equal(time.length, 3);
+      t.equal(typeof time[0], 'string'); // the path to the git repository on local disk
+      t.equal(typeof time[1], 'number'); // the diff in milliseconds
+      t.equal(typeof time[2], 'string'); // the time in human readable form
       t.ok(time);
       t.end();
     });

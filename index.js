@@ -12,8 +12,9 @@ function git(directory, timeFormat, callback) {
       if (error) return callback(error);
 
       const raw = response.toString('utf8').split('\n');
+      const diff = new Date().getTime() - new Date(raw[0]).getTime();
 
-      return callback(null, [directory, time(Math.abs(new Date().getTime() - new Date(raw[0]).getTime()), timeFormat || 'days')]);
+      return callback(null, [directory, diff, time(diff, timeFormat || 'days')]);
     });
   } catch (ex) {
     return callback(ex);

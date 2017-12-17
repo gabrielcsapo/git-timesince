@@ -1,3 +1,11 @@
+# 1.0.0 (12/16/2017)
+
+- adds a sort option `-s, --sort [direction]` by default the sort direction is desc but can also be set to asc
+- fixes the help command to not fail
+- fixes the version and help command to exit the process
+- changes the return from the `Timesince` function, which used to return a array of two values, but now will return with three values `['repo', 'diff in milliseconds', 'human readable diff']`
+- output will take more use of space
+
 # 0.3.1 (12/11/2017)
 
 - removes commander, parsing args the old fashion way

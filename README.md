@@ -21,14 +21,15 @@ npm install git-timesince -g
 ```
 Usage: git-timesince [options]
 
+Commands:
+  -h, --help, help             Output usage information
+  -v, --version, version       Output the version number
 
 Options:
-
-  -V, --version                output the version number
+  -s, --sort [direction]       Can change the direction of the time since for the repos provided (asc, desc) [default is desc]
   -r, --recursive              Recursively looks through directories, using the current working directory as the base
-  -t, --timeFormat <range>     The time format that the output will be formatted in, [seconds, minutes, hours, days, weeks]
+  -t, --timeFormat [range]     The time format that the output will be formatted in, [seconds, minutes, hours, days, weeks]
   -d, --directory [directory]  The current working directory, defaults to process.cwd()
-  -h, --help                   output usage information
 ```
 
 > This can also be used when installed globally as an extension of git
