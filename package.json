@@ -1,6 +1,6 @@
 {
   "name": "git-timesince",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "⏰ a simple extension of git that shows the time since the last commit",
   "main": "index.js",
   "repository": {
@@ -34,7 +34,7 @@
     "tryitout": "^1.2.1"
   },
   "dependencies": {
-    "cli-table2": "^0.2.0"
+    "turtler": "^1.0.0"
   },
   "pkg": {
     "scripts": [

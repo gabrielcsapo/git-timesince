@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const Table = require('cli-table2');
+const Table = require('turtler');
 
 const Timesince = require('../');
 
@@ -84,34 +84,21 @@ Timesince(directory, { recursive, timeFormat }, (error, times) => {
   if (error) {
     console.log(`error parsing directory ${error}`); // eslint-disable-line
   } else {
+    if(!recursive) {
+      return process.stdout.write(`${times[0]} [${times[2]}]\n`);
+    }
+
     print(times, 0);
 
-    var table = new Table({
-      chars: {
-        'top': '',
-        'top-mid': '',
-        'top-left': '',
-        'top-right': '',
-        'bottom': '',
-        'bottom-mid': '',
-        'bottom-left': '',
-        'bottom-right': '',
-        'left': '',
-        'left-mid': '',
-        'mid': '',
-        'mid-mid': '',
-        'right': '',
-        'right-mid': '',
-        'middle': ' '
-      },
-      style: {
-        'padding-left': 0,
-        'padding-right': 0
-      }
-    });
+    // make sure the last row is uniform
+    if(log[log.length - 1].length !== log[0].length) {
+      let filler = new Array(log[0].length - log[log.length - 1].length).fill('');
+      log[log.length - 1] = log[log.length - 1].concat(filler);
+    }
 
-    log.forEach((l) => table.push(l));
-
-    console.log(table.toString()); // eslint-disable-line
+    process.stdout.write(new Table(log, {
+      hasHeader: false,
+      columnSeparator: ' '
+    }).toString()); // eslint-disable-line
   }
 });

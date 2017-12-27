@@ -1,3 +1,8 @@
+# 1.0.1 (12/27/2017)
+
+- uses turtler instead of cli-table2
+- fixes bug where running git-timesince in a directory would cause it to fail
+
 # 1.0.0 (12/16/2017)
 
 - adds a sort option `-s, --sort [direction]` by default the sort direction is desc but can also be set to asc
