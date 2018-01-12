@@ -1,3 +1,7 @@
+# 1.0.2 (01/11/2018)
+
+- updates turtler
+
 # 1.0.1 (12/27/2017)
 
 - uses turtler instead of cli-table2
