@@ -1,6 +1,6 @@
 {
   "name": "git-timesince",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "⏰ a simple extension of git that shows the time since the last commit",
   "main": "index.js",
   "repository": {
@@ -17,7 +17,7 @@
     "node": ">= 6"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "standard --verbose",
     "test": "tape test test/**/*.js",
     "coverage": "tap test --coverage --coverage-report=lcov",
     "generate-docs": "tryitout",
@@ -27,8 +27,8 @@
     "git-timesince": "./bin/git-timesince.js"
   },
   "devDependencies": {
-    "eslint": "^4.15.0",
     "pkg": "^4.2.6",
+    "standard": "^11.0.1",
     "tap": "^11.0.1",
     "tape": "^4.8.0",
     "tryitout": "^2.0.3"

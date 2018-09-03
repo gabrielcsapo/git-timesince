@@ -1,3 +1,9 @@
+# 2.0.0 (09/02/2018)
+
+- no longer uses sync functions
+  - no more blocking io, (0.326s -> 0.266s) 81% increase in speed
+- removes callbacks
+
 # 1.0.2 (01/11/2018)
 
 - updates turtler
